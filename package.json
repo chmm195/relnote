@@ -1,0 +1,17 @@
+{
+  "name": "relnote",
+  "version": "0.1.0",
+  "description": "Zero-dependency CLI that turns a range of Conventional Commits into grouped, linked Markdown release notes.",
+  "type": "module",
+  "bin": { "relnote": "src/cli.js" },
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": ["changelog", "release-notes", "conventional-commits", "semver", "git", "cli"],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/chmm195/relnote.git" },
+  "files": ["src", "README.md", "LICENSE"]
+}
