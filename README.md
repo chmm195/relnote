@@ -43,6 +43,7 @@ relnote                          # <latest tag>..HEAD
 relnote -r v1.2.0..HEAD          # an explicit range
 relnote -v 2.0.0                 # force the heading
 relnote --all                    # also list chore/ci/style commits
+relnote --json                   # machine-readable output
 relnote -C ../other-repo         # a different working tree
 ```
 
@@ -53,6 +54,7 @@ relnote -C ../other-repo         # a different working tree
 | `-C, --cwd <dir>` | Repository directory. Default: the current directory. |
 | `--all` | Include housekeeping commits under **Other changes**. |
 | `--bump` | Print only `major`, `minor` or `patch` and exit. |
+| `--json` | Emit `{ notes, bump, version, count }` as JSON instead of Markdown. |
 | `-h, --help` | Usage. |
 
 Exit codes: `0` success, `1` nothing releasable in the range, `2` bad usage.
