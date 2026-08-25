@@ -13,6 +13,7 @@ Options:
   -C, --cwd <dir>        repository directory (default: current directory)
       --all              include housekeeping commits under "Other changes"
       --bump             print only the recommended bump (major|minor|patch)
+      --json             emit {notes, bump, version, count} as JSON
   -h, --help             show this message
 `;
 
@@ -23,7 +24,7 @@ Options:
  * @param {string[]} argv
  */
 export function parseArgs(argv) {
-  const options = { includeHidden: false, bumpOnly: false, help: false };
+  const options = { includeHidden: false, bumpOnly: false, json: false, help: false };
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
@@ -42,6 +43,7 @@ export function parseArgs(argv) {
       case '-C': case '--cwd': options.cwd = value(); break;
       case '--all': options.includeHidden = true; break;
       case '--bump': options.bumpOnly = true; break;
+      case '--json': options.json = true; break;
       case '-h': case '--help': options.help = true; break;
       default:
         throw new Error(`unknown option: ${arg}`);
@@ -70,6 +72,12 @@ export async function main(argv) {
   }
 
   const result = await generate(options);
+
+  if (options.json) {
+    process.stdout.write(`${JSON.stringify(result, null, 2)}
+`);
+    return result.notes ? 0 : 1;
+  }
 
   if (options.bumpOnly) {
     if (!result.bump) return 1;

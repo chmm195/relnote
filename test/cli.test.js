@@ -28,3 +28,15 @@ test('a value flag with a missing value is an error', () => {
 test('an unknown option is an error', () => {
   assert.throws(() => parseArgs(['--nope']), /unknown option/);
 });
+
+test('--json is off by default and sets its flag when passed', () => {
+  assert.equal(parseArgs([]).json, false);
+  assert.equal(parseArgs(['--json']).json, true);
+});
+
+test('--json composes with the other flags', () => {
+  const options = parseArgs(['--json', '--all', '-r', 'v1..HEAD']);
+  assert.equal(options.json, true);
+  assert.equal(options.includeHidden, true);
+  assert.equal(options.range, 'v1..HEAD');
+});
